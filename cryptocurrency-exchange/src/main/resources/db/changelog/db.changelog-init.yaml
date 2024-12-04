@@ -1,0 +1,75 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-rate
+      author: skiepkoM
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: rate
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: rate_pkey
+                  name: FROM_CURR
+                  type: VARCHAR(8)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: rate_pkey
+                  name: TO_CURR
+                  type: VARCHAR(8)
+              - column:
+                  name: rate
+                  type: NUMERIC(20, 10)
+              - column:
+                  name: RATE_TIMESTAMP
+                  type: TIMESTAMP(9)
+            tableName: rate
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+#                  autoIncrement: true
+                  name: ID
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: FROM_CURR
+                  type: VARCHAR(8)
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKeyName: rate_pkey
+                  name: TO_CURR
+                  type: VARCHAR(8)
+              - column:
+                  name: RATE
+                  type: NUMERIC(20, 10)
+              - column:
+                  name: AMOUNT
+                  type: NUMERIC(20, 10)
+              - column:
+                  name: RESULT
+                  type: NUMERIC(20, 10)
+              - column:
+                  name: FEE
+                  type: NUMERIC(20, 10)
+              - column:
+                  name: EXCHANGE_TIMESTAMP
+                  type: TIMESTAMP(9)
+            tableName: EXCHANGE_RESULT
+
+        - createSequence:
+            sequenceName: EXCHANGE_RESULT_SEQ
+            dataType: BIGINT
+            startValue: 1
+            incrementBy: 50
